@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="title-main">Manual Interativo - CRUD CNAE</title>
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+    <header>
+        <h1 data-i18n="title-main">Manual do Usuário - CRUD CNAE</h1>
+        <div class="language-selector">
+            <button id="lang-selector-pt">🇧🇷 PT</button>
+            <button id="lang-selector-en">🇺🇸 EN</button>
+            <button id="lang-selector-es">🇪🇸 ES</button> 
+        </div>
+    </header>
+
+    <nav id="sidebar">
+        <h2 data-i18n="sidebar-index">Índice</h2>
+        <ul>
+            <!-- O JS irá popular esta lista dinamicamente com os títulos traduzidos -->
+        </ul>
+    </nav>
+
+    <main id="content">
+
+        <!-- SEÇÃO 1: TELA INICIAL (Consulta de Subclasses CNAE (API IBGE)) -->
+        <section id="tela-inicial" class="manual-section">
+            <h2 data-i18n="sec1-title">1. TELA INICIAL (Consulta de CNAE da API IBGE)</h2>
+            <p data-i18n="sec1-p1">Esta é a tela de entrada do sistema. Ela lista todas as Subclasses CNAE disponíveis no catálogo da API do IBGE, atuando como a visão principal dos dados brutos e permitindo o acesso às funções de gerenciamento local.</p>
+            <div class="image-container">
+                <p data-i18n="sec1-img-caption">Visão Geral: Listagem completa dos registros obtidos da API (tabela `tableCnaes`).</p>
+                <!-- IMAGEM ATUALIZADA: tela-inicial.png -->
+                <img src="images/tela-inicial.png" alt="Tela Inicial do CRUD CNAE com lista de CNAE da API" onerror="this.src='https://placehold.co/800x400/e0e7ff/1e40af?text=Tela+Inicial'">
+            </div>
+
+            <h3 data-i18n="sec1-h3-list">1.1. Lista de Registros da API</h3>
+            <p data-i18n="sec1-p2">A tabela exibe a lista de CNAE, com as colunas "ID IBGE" e "Descrição". Estes dados são lidos diretamente da API e não representam o conteúdo do banco de dados local.</p>
+
+            <h3 data-i18n="sec1-h3-actions">1.2. Ações na Tela Inicial</h3>
+            <ul>
+                <li data-i18n="sec1-li-update-btn">Botão Atualizar Lista: Aciona a função `buscarSubclassesAPI` para recarregar a lista de CNAE diretamente da API do IBGE.</li>
+                <li data-i18n="sec1-li-search-btn">Botão Buscar CNAE: Aciona a função `abrirPesquisaDetalhada`, direcionando para a Seção 2 para interagir com os dados locais (pesquisar, salvar, alterar ou excluir um registro).</li>
+            </ul>
+        </section>
+
+        <!-- SEÇÃO 2: PESQUISA DETALHADA (Gerenciamento de CNAEs Locais) -->
+        <section id="pesquisa-detalhada" class="manual-section">
+            <h2 data-i18n="sec2-title">2. PESQUISA DETALHADA (Gerenciamento de CNAEs Locais)</h2>
+            <p data-i18n="sec2-p1">A tela de Pesquisa Detalhada concentra as operações de CRUD (Criação, Leitura, Atualização e Exclusão), focando apenas nos registros já persistidos no banco de dados local.</p>
+
+            <div class="tabs-container">
+                <div class="tab-buttons">
+                    <button class="tab-button active" data-tab="pesquisa-local" data-i18n="tab-search-local">Pesquisar/Consultar (Local)</button>
+                    <button class="tab-button" data-tab="excluir-local" data-i18n="tab-exclude">Excluir Selecionado</button>
+                    <button class="tab-button" data-tab="alterar-local" data-i18n="tab-edit">Editar Selecionado</button>
+                    <button class="tab-button" data-tab="salvar-local" data-i18n="tab-save">Salvar/Incluir (Local)</button>
+                </div>
+
+                <div id="pesquisa-local" class="tab-content active">
+                    <h3 data-i18n="sec2-1-h3">2.1. Pesquisar e Consultar Registros (Banco Local)</h3>
+                    <p data-i18n="sec2-1-p1">Utilize o campo 'Digite o CNAE' para filtrar os resultados. Ao clicar em "Pesquisar", o sistema lista os CNAE que correspondem ao filtro, buscando-os exclusivamente no banco de dados local.</p>
+                    <div class="image-container">
+                        <!-- IMAGEM ATUALIZADA: tela-pesquisa.png (Tela Vazia) -->
+                        <img src="images/tela-pesquisa.png" alt="Tela de Pesquisa Detalhada vazia" onerror="this.src='https://placehold.co/800x400/ffc6b5/9f1d00?text=Pesquisa+Local+(Vazia)'">
+                    </div>
+                    <p data-i18n="sec2-1-p2">Os registros listados (após a busca) servem como base para as demais funções de CRUD local.</p>
+                </div>
+
+                <div id="excluir-local" class="tab-content">
+                    <h3 data-i18n="sec2-2-h3">2.2. Excluir CNAE Selecionado (Confirmação)</h3>
+                    <p data-i18n="sec2-2-p1">O sistema permite a exclusão de apenas **um registro por vez**. Após selecionar **um CNAE** na tabela e clicar em "Excluir Selecionado", o sistema solicita a confirmação do usuário. Aprovada a ação, o registro selecionado é removido do banco de dados local, e a mensagem de sucesso ilustrada é exibida.</p>
+                    <div class="image-container">
+                        <!-- IMAGEM ATUALIZADA: tela-excluir.png (Mensagem de Sucesso) -->
+                        <p data-i18n="sec2-2-p2-dialog">Mensagem de Sucesso Após Exclusão:</p>
+                        <img src="images/tela-excluir.png" alt="Mensagem Registros excluídos com sucesso" onerror="this.src='https://placehold.co/600x300/ffb5b5/9f1d00?text=Sucesso+na+Exclusão'">
+                    </div>
+                    <p data-i18n="sec2-2-p3-info">O diálogo de "Sim/Não" para confirmação da exclusão é obrigatório antes da remoção do registro selecionado.</p>
+                </div>
+
+                <div id="alterar-local" class="tab-content">
+                    <h3 data-i18n="sec2-3-h3">2.3. Editar CNAE Selecionado</h3>
+                    <p data-i18n="sec2-3-p1">Ao selecionar um CNAE e clicar no botão "Editar Selecionado", uma caixa de diálogo é aberta, permitindo a modificação da descrição da Subclasse, como visto abaixo.</p>
+                    <div class="image-container">
+                        <!-- IMAGEM ATUALIZADA: tela-alterar.png (Diálogo de Edição) -->
+                        <p data-i18n="sec2-3-p2-edit">Diálogo de Edição de Descrição:</p>
+                        <img src="images/tela-alterar.png" alt="Diálogo Editar descrição da Subclasse" onerror="this.src='https://placehold.co/600x350/c0d7ff/003d8f?text=Diálogo+de+Edição'">
+                    </div>
+                    <p data-i18n="sec2-3-p3">A modificação é salva no banco de dados local ao clicar em "OK" no diálogo de edição.</p>
+                </div>
+
+                <div id="salvar-local" class="tab-content">
+                    <h3 data-i18n="sec2-4-h3">2.4. Salvar/Incluir CNAE (Banco Local)</h3>
+                    <p data-i18n="sec2-4-p1">O botão "Salvar CNAEs" (localizado na parte inferior da tela de pesquisa) é utilizado para persistir dados no banco de dados local, seja um CNAE importado ou um registro editado. A imagem a seguir mostra uma lista de resultados filtrados antes de serem potencialmente salvos.</p>
+                    <div class="image-container">
+                        <!-- IMAGEM ATUALIZADA: tela-pesquisa-todos.png (Resultados da Pesquisa) -->
+                        <p data-i18n="sec2-4-p2-api-result">Resultados da Pesquisa Filtrados por "A":</p>
+                        <img src="images/tela-pesquisa-todos.png" alt="Tela de Pesquisa Detalhada com CNAE Encontrados" onerror="this.src='https://placehold.co/800x400/b5ffc6/007b3b?text=Resultados+da+Pesquisa'">
+                    </div>
+                    <p data-i18n="sec2-4-p3">O fluxo permite consolidar novos dados (ou importações) no banco de dados local para gerenciamento via CRUD.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
